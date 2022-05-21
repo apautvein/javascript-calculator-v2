@@ -1,6 +1,6 @@
-import './App.css';
-import { useState } from 'react';
-import { evaluate } from 'mathjs';
+import "./App.css";
+import { useState } from "react";
+import { evaluate } from "mathjs";
 
 function App() {
   const [input, setInput] = useState("0");
@@ -9,14 +9,10 @@ function App() {
   const operators = ["+", "-", "*", "/"];
 
   const handleNumberClick = ({ target: { value } }) => {
-    setInput(() =>
-      checkInput(value, input)
-    );
+    setInput(() => checkInput(value, input));
 
-    setBuffer(() =>
-      checkInput(value, buffer)
-    );
-  }
+    setBuffer(() => checkInput(value, buffer));
+  };
 
   const checkInput = (value, current) => {
     if (input === "0") {
@@ -33,40 +29,34 @@ function App() {
     setBuffer(() => "");
 
     setOutput(() => "");
-  }
+  };
 
   const handleOperatorClick = ({ target: { value } }) => {
     const containsOperator = /[*\-+/]/.test(input);
     const endsWithMinus = /-$/.test(input);
 
     if (output) {
-
       setInput(() => value);
 
       setBuffer(() => output + value);
 
       setOutput(() => "");
-
     } else if (!containsOperator) {
-
       setInput(() => value);
 
       setBuffer(() => buffer + value);
-
     } else if (value === "-" && !endsWithMinus) {
-
       setInput(() => value);
 
       setBuffer(() => buffer + value);
     } else {
-
       let number = buffer.replace(/\D+$/, "");
 
       setInput(() => value);
 
-      setBuffer(() => (number + value));
+      setBuffer(() => number + value);
     }
-  }
+  };
 
   const handleEqualsClick = () => {
     const lastCharacter = buffer[buffer.length - 1];
@@ -74,7 +64,7 @@ function App() {
     if (/[0-9]/.test(lastCharacter)) {
       setInput(() => evaluate(buffer));
 
-      setBuffer(() => (buffer + "="));
+      setBuffer(() => buffer + "=");
 
       setOutput(() => evaluate(buffer));
     } else {
@@ -82,19 +72,19 @@ function App() {
 
       setInput(() => evaluate(split));
 
-      setBuffer(() => (split + "="));
+      setBuffer(() => split + "=");
 
       setOutput(() => evaluate(split));
     }
-  }
+  };
 
   const handleDecimalClick = () => {
     if (!/\.$/.test(input) && !/\.\d*/.test(input)) {
-      setInput(() => (input + "."));
+      setInput(() => input + ".");
 
-      setBuffer(() => (buffer + "."));
+      setBuffer(() => buffer + ".");
     }
-  }
+  };
 
   const removeLastCharacter = (string) => {
     let split = string.split("");
