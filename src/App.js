@@ -1,8 +1,11 @@
 import "./App.css";
 import { useState } from "react";
 import { evaluate } from "mathjs";
+import Number from "./components/Number";
+import Operator from "./components/Operator";
+import FunctionKey from "./components/FunctionKey";
 
-function App() {
+const App = () => {
   const [input, setInput] = useState("0");
   const [output, setOutput] = useState("");
   const [buffer, setBuffer] = useState("");
@@ -93,71 +96,41 @@ function App() {
   };
 
   return (
-    <div id="container">
-      <div id="calculator">
-        <div id="input-area">
+    <div className="h-screen bg-black lg:w-1/3 mx-auto rounded-3xl text-white">
+      <div className="h-screen">
+        <div className="text-8xl text-right grid grid-rows-2 gap-4 h-1/3">
           <p>
-            {buffer}
+            {!output && buffer}
             {output}
           </p>
-          <div id="display">{input}</div>
+          <div>{input}</div>
         </div>
-        <div id="buttons">
-          <button id="clear" onClick={handleClearClick}>
-            Clear
-          </button>
-          <button id="divide" value="/" onClick={handleOperatorClick}>
-            /
-          </button>
-          <button id="seven" value="7" onClick={handleNumberClick}>
-            7
-          </button>
-          <button id="eight" value="8" onClick={handleNumberClick}>
-            8
-          </button>
-          <button id="nine" value="9" onClick={handleNumberClick}>
-            9
-          </button>
-          <button id="multiply" value="*" onClick={handleOperatorClick}>
-            *
-          </button>
-          <button id="four" value="4" onClick={handleNumberClick}>
-            4
-          </button>
-          <button id="five" value="5" onClick={handleNumberClick}>
-            5
-          </button>
-          <button id="six" value="6" onClick={handleNumberClick}>
-            6
-          </button>
-          <button id="subtract" value="-" onClick={handleOperatorClick}>
-            -
-          </button>
-          <button id="one" value="1" onClick={handleNumberClick}>
-            1
-          </button>
-          <button id="two" value="2" onClick={handleNumberClick}>
-            2
-          </button>
-          <button id="three" value="3" onClick={handleNumberClick}>
-            3
-          </button>
-          <button id="add" value="+" onClick={handleOperatorClick}>
-            +
-          </button>
-          <button id="zero" value="0" onClick={handleNumberClick}>
-            0
-          </button>
-          <button id="decimal" onClick={handleDecimalClick}>
-            .
-          </button>
-          <button id="equals" onClick={handleEqualsClick}>
-            =
-          </button>
+        <div className="text-3xl grid grid-cols-4 content-evenly gap-4 auto-cols-auto h-2/3">
+          <FunctionKey value={"AC"} onClick={handleClearClick} />
+          <Operator value={"/"} onClick={handleOperatorClick} />
+          <Number value={7} onClick={handleNumberClick} />
+          <Number value={8} onClick={handleNumberClick} />
+          <Number value={9} onClick={handleNumberClick} />
+          <Operator value={"*"} onClick={handleOperatorClick} />
+          <Number value={4} onClick={handleNumberClick} />
+          <Number value={5} onClick={handleNumberClick} />
+          <Number value={6} onClick={handleNumberClick} />
+          <Operator value={"-"} onClick={handleOperatorClick} />
+          <Number value={1} onClick={handleNumberClick} />
+          <Number value={2} onClick={handleNumberClick} />
+          <Number value={3} onClick={handleNumberClick} />
+          <Operator value={"+"} onClick={handleOperatorClick} />
+          <Number
+            value={0}
+            onClick={handleNumberClick}
+            className={"w-32 col-span-2"}
+          />
+          <Number value={"."} onClick={handleDecimalClick} />
+          <Operator value={"="} onClick={handleEqualsClick} />
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default App;
